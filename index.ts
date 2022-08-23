@@ -25,7 +25,9 @@ function diasendGlucoseRecordToNightscoutEntry(
   record: GlucoseRecord
 ): SensorGlucoseValueEntry {
   // FIXME: The created_at datetimes from diasend do not contain any timezone information which can be problematic
-  const date = new Date(record.created_at);
+  var date = new Date(record.created_at);
+  // remove two hours from the date to get the correct timezone
+  // date.setHours(date.getHours() - 2);
   return {
     type: "sgv",
     direction: undefined, // TODO: we currently cannot obtain the direction / trend from diasend
@@ -88,10 +90,14 @@ async function syncDiasendDataToNightscout({
     dateTo,
     glucoseUnit
   );
+  // console log how many records we got 
+
   console.log(
-    "Number of diasend records since",
-    dayjs(dateFrom).fromNow(),
-    records.length
+    "In the last",
+    dayjs(dateFrom).toNow(true),
+    "there are",
+    records.length,
+    "new records from Diasend"
   );
 
   // extract all CGM values first
