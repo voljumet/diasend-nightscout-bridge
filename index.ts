@@ -20,6 +20,9 @@ import {
 
 dayjs.extend(relativeTime);
 
+// listen to port 80
+const port = process.env.PORT || 80;
+
 function diasendGlucoseRecordToNightscoutEntry(
   record: GlucoseRecord
 ): SensorGlucoseValueEntry {
