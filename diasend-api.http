@@ -19,8 +19,8 @@ grant_type=password&password={{diasendPassword}}&scope=PATIENT%20DIASEND_MOBILE_
 
 GET https://{{diasendHostname}}/1/patient/data
 ?type=combined
-&date_from=2022-07-27T10:42:50
-&date_to=2022-08-01T10:42:50
+&date_from=2022-08-23T00:00:01
+&date_to=2022-08-23T23:59:59
 &unit=mmol_l
 Authorization: Bearer {{GetAccessToken.response.body.access_token}}
 
