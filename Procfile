@@ -1,1 +1,1 @@
-web: node dist/run.js
+worker: node dist/run.js
