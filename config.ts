@@ -29,7 +29,7 @@ const config: {
     apiSecret: process.env.NIGHTSCOUT_API_SECRET,
   },
   units: {
-    glucose: (process.env.GLUCOSE_UNIT as GlucoseUnit) || "mg/dl",
+    glucose: (process.env.GLUCOSE_UNIT as GlucoseUnit) || "mmol/l",
   },
 };
 

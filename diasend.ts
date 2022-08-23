@@ -106,7 +106,7 @@ export async function getPatientData(
   accessToken: string,
   date_from: Date,
   date_to: Date,
-  unit: GlucoseUnit = "mg/dl"
+  unit: GlucoseUnit = "mmol/l"
 ): Promise<PatientRecord[]> {
   const response = await diasendClient.get<
     { data: PatientRecord[]; device: DeviceData }[]
