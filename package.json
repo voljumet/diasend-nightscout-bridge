@@ -11,10 +11,9 @@
   },
   "scripts": {
     "start": "node dist/run.js",
-    "postinstall": "tsc",
+    "build": "tsc",
     "lint": "eslint .",
     "prepare": "npm run build",
-    "run": "npm run build && node dist/run.js",
     "test-run": "npm run build && node dist/test-run.js"
   },
   "devDependencies": {
