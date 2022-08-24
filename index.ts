@@ -91,12 +91,9 @@ async function syncDiasendDataToNightscout({
     glucoseUnit
   );
   // console log how many records we got 
-
   console.log(
-    "In the last",
-    dayjs(dateFrom).toNow(true),
-    "there are",
-    records.length,
+    "In the last",dayjs(dateFrom).toNow(true),
+    "there are",records.length,
     "new records from Diasend"
   );
 
@@ -173,12 +170,13 @@ async function syncDiasendDataToNightscout({
       },
       []
     );
-
-  console.log(`Sending ${nightscoutEntries.length} entries to nightscout`);
-  console.log(
-    `Sending ${nightscoutTreatments.length} treatments to nightscout`
-  );
-  // send them to nightscout
+  if (nightscoutEntries.length != 0)
+    console.log(`Sending ${nightscoutEntries.length} entries to nightscout`);
+  
+  if (nightscoutTreatments.length != 0)
+    console.log(`Sending ${nightscoutTreatments.length} treatments to nightscout`);
+  
+    // send them to nightscout
   return await Promise.all([
     nightscoutEntriesHandler(nightscoutEntries),
     nightscoutTreatmentsHandler(nightscoutTreatments),
@@ -186,7 +184,7 @@ async function syncDiasendDataToNightscout({
 }
 
 // CamAPSFx uploads data to diasend every 5 minutes. (Which is also the time after which new CGM values from Dexcom will be available)
-const interval = 5 * 60 * 1000;
+const interval = 60 * 1000;
 
 let synchronizationTimeoutId: NodeJS.Timeout | undefined | number;
 export function startSynchronization({
@@ -206,10 +204,11 @@ export function startSynchronization({
     })
     .finally(() => {
       // schedule the next run
+      var nextTime = new Date();
+      const time = `${nextTime.getHours()}:${nextTime.getMinutes()+1}`;
+
       console.log(
-        `Next run will be in ${dayjs()
-          .add(pollingIntervalMs, "milliseconds")
-          .fromNow()}...`
+        `Next fetch from Diasend will be done: ${time} ...`
       );
       // if synchronizationTimeoutId is set to 0 when we get here, don't schedule a re-run. This is the exit condition
       // and prevents the synchronization loop from continuing if the timeout is cleared while already running the sync
