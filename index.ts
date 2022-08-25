@@ -27,7 +27,7 @@ function diasendGlucoseRecordToNightscoutEntry(
   // FIXME: The created_at datetimes from diasend do not contain any timezone information which can be problematic
   var date = new Date(record.created_at);
   // remove two hours from the date to get the correct timezone
-  date.setHours(date.getHours() + 2);
+  // date.setHours(date.getHours() + 2);
   return {
     type: "sgv",
     direction: undefined, // TODO: we currently cannot obtain the direction / trend from diasend
