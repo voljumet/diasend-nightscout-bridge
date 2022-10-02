@@ -17,6 +17,7 @@ import {
   Treatment,
   CorrectionBolusTreatment,
 } from "./nightscout";
+import { Console } from "console";
 
 dayjs.extend(relativeTime);
 
@@ -205,7 +206,9 @@ export function startSynchronization({
     .finally(() => {
       // schedule the next run
       var nextTime = new Date();
-      const time = `${nextTime.getHours()}:${nextTime.getMinutes()+1}`;
+      var nextUnit = Number(process.env.UPDATE_INTERVAL);
+      // cast to number
+      const time = `${nextTime.getHours()}:${nextTime.getMinutes()+ nextUnit}`;
 
       console.log(
         `Next fetch from Diasend will be done: ${time} ...`
