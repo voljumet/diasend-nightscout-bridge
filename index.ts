@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `.env` })
 import config from "./config";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -20,6 +21,7 @@ import {
 import { Console } from "console";
 
 dayjs.extend(relativeTime);
+// print the date used for the query
 
 
 function diasendGlucoseRecordToNightscoutEntry(
@@ -209,7 +211,7 @@ export function startSynchronization({
       var nextUnit = Number(process.env.UPDATE_INTERVAL);
       // cast to number
       const time = `${nextTime.getHours()}:${nextTime.getMinutes()+ nextUnit}`;
-
+      console.log("Querying data from " + dayjs().subtract(1, "day").format("YYYY-MM-DD HH:mm:ss") + " to " + dayjs().format("YYYY-MM-DD HH:mm:ss"));
       console.log(
         `Next fetch from Diasend will be done: ${time} ...`
       );
